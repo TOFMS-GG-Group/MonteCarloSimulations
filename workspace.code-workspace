@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "AIOPython"
+		}
+	],
+	"settings": {
+		"python.pythonPath": "C:\\Users\\buckm065\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+		"python.linting.pylintEnabled": true
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			
+
+		]
+	}
+}
