@@ -48,7 +48,6 @@ print('Number of Elements: ' + str(NumElms))
 
 # User Options --Select and change only these parameters--
 runMF_var = True # True or False
-#runSIS_Corr = True
 median = 20 # Positive scalar quantity
 sdv = 15 # Positive scalar quantity
 cnfdInt = 95.0 #Confidence interval
@@ -63,12 +62,6 @@ if runMF_var is True:
     print('Additional MF Variance Enabled')
 else:
     print('No Additional MF Variance Applied')
-
-#if runSIS_Corr is True:
-#    SIS = read_table('SIS.txt')
-#    print('SIS correction Enabled')
-#else:
-#    print('No SIS correction Enabled')
 
 # Begin Monte Carlo Simulation
 if NumElms > 1: #Calculate the ctRatios
