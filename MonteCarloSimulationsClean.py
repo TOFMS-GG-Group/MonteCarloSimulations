@@ -38,9 +38,8 @@ def vol_mass(array,dens):
     mass = volume*dens
     return volume, mass
 
-
 # Show the user the the detection information
-detectInfo, NPname, dnsty, elmnts, massFract, sensitivity, critValue,critMass = readInfo('BastnaesiteNP_DetectInfo.txt')
+detectInfo, NPname, dnsty, elmnts, massFract, sensitivity, critValue,critMass = readInfo('LighterINPs_DetectInfo.txt')
 print("Particle information: \n" + str(detectInfo))
 NumElms = len(sensitivity)
 print('Number of Elements: ' + str(NumElms))
@@ -48,13 +47,13 @@ print('Number of Elements: ' + str(NumElms))
 
 # User Options --Select and change only these parameters--
 runMF_var = True # True or False
-median = 20 # Positive scalar quantity
-sdv = 15 # Positive scalar quantity
-cnfdInt = 95.0 #Confidence interval
-PSDistribution = 'lognorm' #Type of distribution for particle size (lognorm,norm)
-NumPtcls = 5000 # Number of particle events simulated
+median = 25 # Positive scalar quantity
+sdv = 20 # Positive scalar quantity
+cnfdInt = 99.0 #Confidence interval
+PSDistribution = 'norm' #Type of distribution for particle size (lognorm,norm)
+NumPtcls = 10000 # Number of particle events simulated
 writeInfo = True
-saveAS = 'Bastnaesite_20nm15nm015_Updated.xlsx'
+saveAS = 'Ferrocerium25nm20nm015_BroaderCI.xlsx'
 
 if runMF_var is True:
     MF_rsd = 0.15 # Positive real number between 0 and 1
@@ -167,13 +166,14 @@ poisson_mean = np.empty(25)
 tmp_constlower = np.empty(25)
 tmp_constupper = np.empty(25)
 
+my_generator = np.random.default_rng()
 cnfdBands = np.empty([25,NumElms])
 for j in range(NumElms):
     for i in enumerate(ramp):
         #PoissonNorm
         tmp = np.array(ramp_ctRatio[j])
-        poissonNoise_ramp = np.random.poisson(i[1],50000) #array
-        poissonNoise_rampCtRatio = np.random.poisson(tmp[i[0]],50000)#array
+        poissonNoise_ramp = my_generator.poisson(i[1],50000) #array
+        poissonNoise_rampCtRatio = my_generator.poisson(tmp[i[0]],50000)#array
         poisson_mean[i[0]] = np.mean(poissonNoise_ramp) #float
         NoiseRatio = np.array(poissonNoise_ramp/poissonNoise_rampCtRatio) #array
         pcntlUpper[i[0]] = np.percentile(NoiseRatio,upperPcnt) #float, needs to be added to an array
@@ -193,15 +193,17 @@ for j in range(NumElms):
 cnfdBands = cnfdBands[:, NumElms:]
 
 if runMF_var is False:
-    particle_intensity = [[0]*NumPtcls for x in range(NumElms)]
-    element_mass = [[0]*NumPtcls for x in range(NumElms)]
+    particle_intensity = [[0.0]*NumPtcls for x in range(NumElms)]
+    element_mass = [[0.0]*NumPtcls for x in range(NumElms)]
     for idx in sensitivity:
-        for a in range(massFract.shape[0]):
-            temp_array = []
-            temp_array = idx*PtclMass*massFract[a]
-            particle_intensity[a] = np.random.poisson(temp_array)
-        element_mass[a] = particle_intensity[a]/sensitivity[a]
-    particle_intensity = np.transpose(particle_intensity)
+            for a in range(massFract.shape[0]):
+                temp_array = []
+                temp_array = idx*PtclMass*massFract[a]
+                particle_intensity[a] = my_generator.poisson(temp_array)
+                element_mass[a] = particle_intensity[a]/idx
+    particle_intensity = np.array(particle_intensity)
+    element_mass = np.array(element_mass)
+    print(particle_intensity)
 else:
     if NumElms > 1:
         if MF_dist == 'lognorm':
@@ -234,13 +236,14 @@ else:
                 for a in range(MF_appended.shape[1]):
                     temp_array = []
                     temp_array = idx*PtclMass*MF_appended[:,a]
-                    particle_intensity[a] = np.random.poisson(temp_array)
+                    particle_intensity[a] = my_generator.poisson(temp_array)
                     element_mass[a] = particle_intensity[a]/sensitivity[a]
     else:
         print("MF Variance for one element not supported.")
         exit()
 particle_intensity = np.transpose(particle_intensity)
 element_mass = np.transpose(element_mass)
+
 i = 0
 for elm in particle_intensity:
     for i in range(NumElms):
@@ -249,7 +252,6 @@ for elm in particle_intensity:
         else:
             elm[i] = 0
             i =+ 1
-particle_intensity = particle_intensity.transpose()
 i = 0
 for elm in element_mass:
     for i in range(NumElms):
@@ -258,37 +260,36 @@ for elm in element_mass:
         else:
             elm[i] = 0.00E+00
             i =+ 1
-element_mass = element_mass.transpose()
 
 if NumElms > 1:
-    particle_ratio = particle_intensity[0]/particle_intensity[1]
-    # plt.clf()
-    # plt.scatter(particle_intensity[0],particle_ratio)
-    # plt.scatter(cnfdBands[:,5],cnfdBands[:,6])
-    # plt.scatter(cnfdBands[:,5],cnfdBands[:,7])
-    # plt.scatter(cnfdBands[:,5],cnfdBands[:,8])
-    # plt.scatter(cnfdBands[:,5],cnfdBands[:,9])
-    # plt.xscale('log')
-    # plt.yscale('log')
-    # plt.ylim(0.1,10)
-    # plt.title('Elemental Ratio Convergence')
-    # plt.xlabel('Particle Intensity Elem. 1 [ToF Cts]')
-    # plt.ylabel('Ratio Elem. 1 : Elem. 2 [ToF Cts / ToF Cts]')
-    # plt.legend(['Particles', 'Upper Pois', 'Lower Pois', 'Lower Norm', 'Upper Norm'])
-    # plt.show()
-    # Correlation Plot
+#   Ratio Plot 
+    particle_ratio = particle_intensity[:,0]/particle_intensity[:,1]
     plt.clf()
-    plt.scatter(particle_intensity[0],particle_intensity[1])
+    print(particle_ratio)
+    plt.scatter(particle_intensity[:,0],particle_ratio)
+    plt.scatter(cnfdBands[:,5],cnfdBands[:,6])
+    plt.scatter(cnfdBands[:,5],cnfdBands[:,7])
+    plt.scatter(cnfdBands[:,5],cnfdBands[:,8])
+    plt.scatter(cnfdBands[:,5],cnfdBands[:,9])
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.ylim(0.1,10)
+    plt.title('Elemental Ratio Convergence')
+    plt.xlabel('Particle Intensity Elem. 1 [ToF Cts]')
+    plt.ylabel('Ratio Elem. 1 : Elem. 2 [ToF Cts / ToF Cts]')
+    plt.legend(['Particles', 'Upper Pois', 'Lower Pois', 'Lower Norm', 'Upper Norm'])
+    plt.show()
+#   Correlation Plot
+    plt.clf()
+    plt.scatter(particle_intensity[:,0],particle_intensity[:,1])
     plt.xscale('log')
     plt.yscale('log')
     plt.title('Elemental Correlation')
     plt.xlabel('Particle Intensity Elem. 1 [ToF Cts]')
     plt.ylabel('Particle Intensity Elem. 2 [ToF Cts]')
     plt.show()
-    particle_intensity = np.transpose(particle_intensity)
-# element_mass = element_mass.transpose()
-# plt.hist(element_mass[0],'auto')
-# plt.show()
+plt.hist(element_mass[:,0],'auto')
+plt.show()
 
 if writeInfo is True:
     #DetectInfo
@@ -318,7 +319,7 @@ if writeInfo is True:
     df4= pd.DataFrame(particle_intensity)
     df4.columns = elmnts
     #ElementMasses
-    df5 = pd.DataFrame(np.transpose(element_mass))
+    df5 = pd.DataFrame(element_mass)
     df5.columns = elmnts
 
     #ConfidenceIntervals
