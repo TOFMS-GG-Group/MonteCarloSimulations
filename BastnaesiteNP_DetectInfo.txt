@@ -1,0 +1,6 @@
+NP_Name	Density	Elements	MassFraction	Sensitivity	L_C/Cts
+Bast	5.12	Ce	0.319	2.89E+17	10.35
+		Nd	0.090	1.50E+17	6.92
+		La	0.143	2.72E+17	7.64
+		Pr	0.042	3.34E+17	5.78
+		Th	0.010	3.86E+17	3.19
