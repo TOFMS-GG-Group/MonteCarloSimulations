@@ -41,21 +41,21 @@ def vol_mass(array,dens):
     return volume, mass
 
 # Show the user the the detection information
-detectInfo, NPname, dnsty, elmnts, massFract, sensitivity, critValue,critMass = readInfo('11.28.23_359Ma Age.txt')
+detectInfo, NPname, dnsty, elmnts, massFract, sensitivity, critValue,critMass = readInfo('BastnaesiteNP_DetectInfo.txt')
 print("Particle information: \n" + str(detectInfo))
 NumElms = len(sensitivity)
 print('Number of Elements: ' + str(NumElms))
 
 
 # User Options --Select and change only these parameters--
-runMF_var = True # True or False
-median = 500 # Positive scalar quantity
-sdv = 300 # Positive scalar quantity
+runMF_var = False # True or False
+median = 30 # Positive scalar quantity
+sdv = 15 # Positive scalar quantity
 cnfdInt = 95.0 #Confidence interval
 PSDistribution = 'lognorm' #Type of distribution for particle size (lognorm,norm)
 NumPtcls = 5000 # Number of particle events simulated
 writeInfo = True
-saveAS = 'MonaziteTest3.xlsx'
+saveAS = 'Bastnaesite_Test.xlsx'
 
 if runMF_var is True:
     MF_rsd = 0.15 # Positive real number between 0 and 1
