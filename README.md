@@ -1,4 +1,5 @@
-Monte Carlo Methods for Simulating single-particles measured by spICP-TOFMS
+Monte Carlo Methods for Simulating Single-Particles Measured by spICP-TOFMS
+
 This Monte Carlo simulation is designed to provide a simple, user-operable code to simulate
 single-particles in the nano- and submicron regimes and mimic signals obtained from 
 single-particle inductively coupled plasma time-of-flight mass spectrometry.
