@@ -1,0 +1,100 @@
+~Monte Carlo Simulations for spICP-TOFMS~
+	Installation Guide for First Time Python/Anaconda Users
+	Raven L. Buckman, Alex Gundlach-Graham
+	Department of Chemistry
+	Iowa State University, Ames, IA
+
+Step 1) Anaconda and VS Code
+	A) Go to the anaconda webpage. Download the appropriate and most recent software for your device
+	   www.anaconda.com/downloads
+	B) Write down the Python version number that you are downloading for future reference.
+	C) Follow the onscreen instructions to download the free version. 
+	D) Once the download is complete, you may open your Downloads folder (or wherever the file has been downloaded)
+	E) For Windows, right-click the file and "Run as Administrator."
+	   For Mac or Linux, double-click the file.
+	F) Click Next, Continue, Agree, or I Agree on the first installation pages. 
+	   Select the installation option that makes sense for you and your device.
+	G) Click Continue or Next and follow the onscreen prompts to complete the installation.
+	H) When the page asks if you want to install Microsoft VS Code, click Install Microsoft VS Code.
+	   If VS Code is already installed on your device, the installer may ask you to update the software 
+	   to the most recent version.
+	I) Continue to follow any onscreen instructions, clicking Continue or Next to proceed through the installation steps, 
+	   and then click Close or Finish on the last page.
+Step 2) Opening Anaconda
+	Mac
+		A) Open Launch Pad and click Anaconda Navigator icon and open it.
+		B) Click the Spotlight magnifying glass, start typing Anaconda, and then double-click Anaconda Navigator
+		C) Open Finder and your Applications folder and double-click the Anaconda Navigator icon
+		D) {Optional} Right-click on the Anaconda Navigator icon in the dock and select "Keep in Dock" for fast, easy access.
+	Windows
+		A) Open the Start menu, click Anaconda Navigator to open.
+		B) Click the Start button, start typing Anaconda, and click on Anaconda Navigator on the Start menu when you see it
+		C) {Optional} Right-click Anaconda Navigator and choose Pin to Start or right-click and choosse More -> Pin to Taskbar
+Step 3) Writing Python in VS Code
+	A) Open Anaconda Navigator.
+	B) Locate and click the Launch button under VS Code.
+	C) If prompted to make some decision regarding VS Code, you may skip these and exit the window.
+	D) VS code is a generic code editor that works with several languages. To use VS Code with Python and Anaconda,
+	   some VS Code extensions may be necessary. Click the Extensions icon in the left pane (puzzle piece). 
+	   Note the following extensions: Anaconda Extension Pack, Python, and YAML. Ensure that these are enabled.
+Step 4) Choosing the Python Interpreter
+	A) Choose View -> Command Palette from VS Code's menu.
+	B) Type Python and then click Python: Select Interpreter
+	   Choose the Python version that matches your download (from Step 1B).
+	   If you have several options with the same version number, choose the one that includes the names "base" and "conda".
+Step 5) Writing Python Code
+	A) In VS Code, choose View -> Terminal from the VS Code menu. A pane will appear along the bottom right.
+	B) On the Terminal, type python and press Enter. You should see some information about Python followed by a >>> prompt.
+	   That >>> prompt is your Python interpreter; if you type python code on this line and press Enter, the code will execute.
+	C) Type 1+1 and press Enter. The answer should appear followed by another >>> prompt.
+	   This ensures that your Python development environment is all set up and ready to use. This step does not need to be repeated.
+	D) In the VS Code Terminal, press CTRL+D or type exit() and press Enter.
+	   You should no longer see the >>> prompt.
+	E) To close VS Code
+		Windows: Click the Close (X) icon in the upper-right corner or choose File -> Quit from the menu bar.
+		Mac: Click the red dot in the upper-left corner, or choose Code -> Quit Visual Studio Code from the menu.
+	F) To close Anaconda Navigator
+		Windows: Click the Close (X) icon in the upper-right corner or choose File -> Quit from the menu bar.
+		Mac: Click the red dot in the upper-left corner, or choose Code -> Quit Anaconda Navigator from the menu.
+Step 6) Using Python's Interactive Mode
+	A) Open Anaconda Navigator, open VS Code by clicking the Launch button on the Anaconda home page.
+	B) If you do not see the Terminal pane at the bottom of the window, choose View -> Terminal from the menu bar.
+	C) If the word Terminal is not highlighted at the tope of the pane, click Terminal.
+	D) The first prompt is typically for your computer's operating system, and shows the username of the account.
+	E) At the operating system command prompt, type the following and press Enter to see what version of Python you're using.
+	   python --version
+	   You should see Python 3.x.x; if instead you see an error message, you will want to make sure that VS Code was launched 
+	   from Anaconda not the Start menu or Launch Pad. If this does not resolve your error see Step 4.
+	F) Launch the Python interpreter by typing the following command:
+	   python
+	   You should now see the >>> prompt.
+	G) For further assistance, type help or help() into the command prompt. 
+	H) To leave the interpreter, type exit() or CTRL-Z + Return to exit.
+Step 7) Creating a Python Development Workspace
+	A) If VS Code is not already open, launch it from Anaconda.
+	B) Choose File -> Save Workspace As, and navigate to the folder where you want to save the workspace.
+	C) Type a name for the workspace, and then click Save.
+	D) Next, perform one of the following steps to adjust some VS Code settings to indicate the location of the saved workspace:
+	   Windows: Choose File -> Preferences -> Settings
+	   Mac: Choose Code -> Preferences -> Settings
+	E) Click the Open Settings (JSON) icon in the top-right corner (puzzle piece adjacent).
+	F) In the next window, select the entire line of code that starts with "python.pythonpath"
+	G) Right-click the selected code and choose Copy to copy it to the clipboard
+	H) Click the Split Editor Right icon, near the top-right corner (two side-by-side pages). Two copies of settings.json should 
+	   appear side-by-side.
+	I) Choose View -> Command Palette. Type open and the select Preferences: Open Workspace Settings(JSON).
+	J) Click between the setting's curly braces and past the lines of code there.
+	K) Choose File -> Save from the VS Code menu.
+	L) Close the Settings and User Settings tabs by clicking the X on the right side of each tab.
+	M) Close VS Code, and the close Anaconda.
+Step 8) Using the Monte Carlo Simulation Code from GitHub
+	A) Launch https://github.com/TOFMS-GG-Group/MonteCarloSimulations in your preferred internet browser.
+	B) Download the latest version of the MonteCarloSimulations.py file
+	C) Move this file to the same location as the Python Workspace that was created in Step 7.
+	D) Launch VS Code from the Anaconda Navigator home page.
+	E) Open the file from the Explorer pane (left, two overlapping pages). 
+	F) All necessary pacakges should install automatically in the first 11 lines of the code.
+	G) User-defined parameters are available between lines 50 and 58. 
+	   Particle detection information should be formatted according to the template available on the previously mentioned GitHub page.
+	H) The Monte Carlo Simulations should proceed unimpinged and figures will pop-up periodically. To procceed, click the X on the top-right of the figure.
+	   Data can be saved/exported from the simulations should the user specify "WriteInfo" as True
