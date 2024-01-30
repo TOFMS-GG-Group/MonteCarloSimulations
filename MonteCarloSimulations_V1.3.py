@@ -54,7 +54,7 @@ sdv = 15 # Positive scalar quantity
 cnfdInt = 95.0 #Confidence interval
 PSDistribution = 'lognorm' #Type of distribution for particle size (lognorm,norm)
 NumPtcls = 5000 # Number of particle events simulated
-writeInfo = True
+writeInfo = True # True or False
 saveAS = 'Bastnaesite_Test.xlsx'
 
 if runMF_var is True:
