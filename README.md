@@ -10,3 +10,6 @@ The script requires no special dependencies.
 
 Written by Raven L. Buckman under the advisory of Alexander Gundlach-Graham.
 Published: December 2023
+
+Monte Carlo Simulations V1.4 is the most up-to-date and the beginner user friendly option.
+Monte Carlo Simulations V1.5 is the advanced user option with additional parameters for manipulation.
